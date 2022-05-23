@@ -23,14 +23,15 @@ export class News extends Component {
       page: 1,
     };
   }
-  async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=21b5ccf3f5ec447f8e35639fc8c2c27e&page=1&pageSize=${this.props.pageSize}`;
+
+  async updateNews() {
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=21b5ccf3f5ec447f8e35639fc8c2c27e&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({
       loading: true,
     });
     let data = await fetch(url);
     let parsedData = await data.json();
-    console.log(parsedData);
+    // console.log(parsedData);
     this.setState({
       article: parsedData.articles,
       totalArticles: parsedData.totalResults,
@@ -38,45 +39,21 @@ export class News extends Component {
     });
   }
 
+  async componentDidMount() {
+    this.updateNews();
+  }
+
   handlePreviousClick = async () => {
-    console.log("prev");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${
-      this.props.category
-    }&apiKey=21b5ccf3f5ec447f8e35639fc8c2c27e&page=${
-      this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
-    this.setState({
-      loading: true,
-    });
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log(parsedData);
     this.setState({
       page: this.state.page - 1,
-      article: parsedData.articles,
-      loading: false,
     });
+    this.updateNews();
   };
   handleNextClick = async () => {
-    if (this.state.page + 1 <= Math.ceil(this.state.totalArticles / 15)) {
-      console.log("next");
-      let url = `https://newsapi.org/v2/top-headlines?country=in&category=${
-        this.props.category
-      }&apiKey=21b5ccf3f5ec447f8e35639fc8c2c27e&page=${
-        this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
-      this.setState({
-        loading: true,
-      });
-      let data = await fetch(url);
-      let parsedData = await data.json();
-      console.log(parsedData);
-      this.setState({
-        page: this.state.page + 1,
-        article: parsedData.articles,
-        loading: false,
-      });
-    }
+    this.setState({
+      page: this.state.page + 1,
+    });
+    this.updateNews();
   };
 
   render() {
