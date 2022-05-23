@@ -97,6 +97,9 @@ export class News extends Component {
                         ? item.urlToImage
                         : "https://media-exp1.licdn.com/dms/image/C4E0BAQFXYSTFbEdpuQ/company-logo_200_200/0/1621810326169?e=2147483647&v=beta&t=KcxTXpGnfQoy9L3RoPTabwQYNINHZjJq0oWMgYHSY6Q"
                     }
+                    author={item.author}
+                    date={item.publishedAt}
+                    source={item.source.name}
                     newsUrl={item.url}
                   />
                 </div>
