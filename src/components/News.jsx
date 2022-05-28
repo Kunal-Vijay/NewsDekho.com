@@ -75,10 +75,20 @@ export class News extends Component {
   render() {
     return (
       <>
-        <h1 style={{ textAlign: "center" }}>
+        <h1 style={{ textAlign: "center", marginTop: "90px" ,color:"white"}}>
           NewsDekho - Top {this.capitalizeFirstLetter(this.props.category)}{" "}
           Headlines
         </h1>
+        <div
+          style={{
+            borderBottomStyle: "solid",
+            borderBottomColor: "#ffc107",
+            borderBottomWidth: 2,
+            marginLeft: "40%",
+            marginRight: "40%",
+            marginBottom: "5%",
+          }}
+        ></div>
         {this.state.loading && <Loader />}
         <InfiniteScroll
           dataLength={this.state.article.length}
